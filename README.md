@@ -1,6 +1,6 @@
 ## Adding and removing triggers in game
 
-You can now add triggers in game by typing
+You can add triggers in game by typing
 
 ` #add_trigger [word or phrase] `
 
