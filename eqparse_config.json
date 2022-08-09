@@ -1,0 +1,50 @@
+{
+    "config": {
+        "ignore": {
+            "words": [
+                "Hello there,", 
+                "Dogle Pitt", 
+                "Scores a critical hit", 
+                "has left the group", 
+                "I'll give you", 
+                "FLURRY", 
+                "joined the raid", 
+                "saved", 
+                "You will not evade me", 
+                "just browsing?", 
+                "SINIA", 
+                "fades from your mind", 
+                "Greetings,", 
+                "I am unable to wake", 
+                "Banker", 
+                "mourns the loss", 
+                "Welcome to my shop,", 
+                "That'll be", 
+                "been slain by", 
+                "now auto-follow"
+            ]
+        }, 
+        "update_commands": {
+            "add_ignore": "You say, '#add_ignore", 
+            "start_timer": "You say, '#start_timer", 
+            "add_trigger": "You say, '#add_trigger", 
+            "remove_ignore": "You say, '#remove_ignore", 
+            "remove_trigger": "You say, '#remove_trigger"
+        }, 
+        "spam_delay": "5", 
+        "triggers": {
+            "words": [
+                "Deeds spell has worn off", 
+                "slows down", 
+                "scrounged up", 
+                "charm spell has worn off", 
+                "takes a deep slice to the leg.", 
+                "it breaks", 
+                "You are no longer auto-following", 
+                "Funeral Pyre of Kelador spell has worn off", 
+                "tells you", 
+                "FOLLOW"
+            ]
+        }
+    }
+}
