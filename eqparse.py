@@ -173,9 +173,10 @@ def thread_files(directory):
 
       for fp in file_pointers:
         new = fp.readline()
-        line_set.add(new)
+        if len(new) > 0:
+          line_set.add(new)
     
-      if line_set:
+      if len(line_set)>0:
         for text in line_set:
           
           if text:
@@ -228,8 +229,6 @@ def thread_files(directory):
                   except:
                     pass
 
-      else:
-        time.sleep(1)
-
+      time.sleep(0.05)
 
 thread_files(directory)
