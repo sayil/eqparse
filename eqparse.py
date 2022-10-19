@@ -7,8 +7,9 @@ from datetime import timedelta
 from os.path import expanduser
 home = expanduser("~")
 
+working_directory = os.path.dirname(os.path.abspath(__file__))
+logs_directory = home + '/Library/Application Support/EverQuest/PlayerLogs/'
 
-directory = home + '/Library/Application Support/EverQuest/PlayerLogs/'
 
 
 
@@ -106,12 +107,12 @@ def not_spam(prev_time, spam_delay):
 
 #iterates through logs in the PlayerLogs directory and creates a pointer to the last line of each file
 #this function needs to be optimized
-def get_file_pointers(directory):
+def get_file_pointers(logs_directory):
     
     file_pointers = []
     
-    for file_name in os.listdir(directory):
-      file_path = directory + file_name
+    for file_name in os.listdir(logs_directory):
+      file_path = logs_directory + file_name
 
       try:
         fp = open(file_path, 'r')
@@ -122,13 +123,14 @@ def get_file_pointers(directory):
     
     return file_pointers
   
-def thread_files(directory):
+def thread_files(working_directory, logs_directory):
   
     #####
     ## initialize config here... can this be done in a separate function?
     #####
-    config_file = 'eqparse_config.json' #config file must be in the same folder as this script
-    config_file_pointer = open(config_file, 'r')
+    config_file_path = working_directory + '/eqparse_config.json' #config file must be in the same folder as this script
+
+    config_file_pointer = open(config_file_path, 'r')
 
     config = json.load(config_file_pointer)
     #print config
@@ -144,6 +146,9 @@ def thread_files(directory):
     
     ignore_words = config["config"]["ignore"]["words"]
     print ignore_words
+
+    ignore_characters = config["config"]["ignore"]["characters"]
+    print ignore_characters
     
     add_trigger_command = config["config"]["update_commands"]["add_trigger"]
     print add_trigger_command
@@ -164,7 +169,9 @@ def thread_files(directory):
 
     config_file_pointer.close()
 
-    file_pointers = get_file_pointers(directory)
+    file_pointers = get_file_pointers(logs_directory)
+
+    print(ignore_characters)
 
     while True:
       line_set = set()
@@ -183,8 +190,6 @@ def thread_files(directory):
             #This removes the timestamp from being parsed. Highly prone to bugs if log line has additional brackets in it.
             subtext = text.split("]")
             if len(subtext) > 1:
-              
-
           
               if add_trigger_command in text:
                   add_trigger(config_file, trigger_word_dict, add_trigger_command, text)
@@ -206,7 +211,7 @@ def thread_files(directory):
               #Could be smarter. Create a list of currently played character names based on active logs i.e. Taelor, Sayil, Lucid
               #check if first_word in active_chars
               
-              if first_word == "Taelor":
+              if first_word in ignore_characters:
                 print "ignoring line: " + text
                 
               else:
@@ -231,4 +236,4 @@ def thread_files(directory):
 
       time.sleep(0.05)
 
-thread_files(directory)
+thread_files(working_directory, logs_directory)
