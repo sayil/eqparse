@@ -1,6 +1,9 @@
 {
     "config": {
         "ignore": {
+            "characters": [
+                "MyCharName"
+            ], 
             "words": [
                 "Hello there,", 
                 "Dogle Pitt", 
